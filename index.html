@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f6f4ef" />
+  <title>小小自习室 · 一起专注</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section class="auth-screen" id="authScreen">
+    <form class="auth-card" id="authForm">
+      <div class="auth-mark" aria-hidden="true">⌂</div>
+      <p class="auth-kicker">STUDY NOOK</p>
+      <h1>回到自习室</h1>
+      <p class="auth-copy">使用已加入房间的 Supabase 账号登录。</p>
+      <label for="authEmail">邮箱</label>
+      <input id="authEmail" type="email" autocomplete="username" required placeholder="you@example.com">
+      <label for="authPassword">密码</label>
+      <input id="authPassword" type="password" autocomplete="current-password" required placeholder="输入账号密码">
+      <p class="auth-error hidden" id="authError" role="alert"></p>
+      <button class="auth-submit" id="authSubmit" type="submit">登录自习室</button>
+    </form>
+  </section>
+  <div class="app-shell hidden" id="appShell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="小小自习室首页"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 21.5h17a4 4 0 0 0 .3-8 8.2 8.2 0 0 0-15.6-1.1 4.7 4.7 0 0 0-1.7 9.1Z"/><path d="M12 16.5h8M12 19.5h5"/></svg></span><span>小小自习室<small>STUDY NOOK</small></span></a>
+      <div class="side-label">空间</div>
+      <button class="nav-item active"><span class="nav-icon">⌂</span> 自习室 <span class="nav-count" id="memberNavCount">0</span></button>
+      <button class="nav-item" id="historyNav"><span class="nav-icon">◷</span> 专注记录</button>
+      <div class="sidebar-spacer"></div>
+      <div class="timezone-card"><div class="tz-title"><span>◉</span> 两地时间</div><div class="tz-row"><span>伦敦</span><b id="londonClock">--:--</b></div><div class="tz-row"><span>北京</span><b id="beijingClock">--:--</b></div><div class="tz-note">时间会自动切换夏令时</div></div>
+      <button class="profile-switch" id="profileSwitch"><span class="mini-avatar" id="profileAnimal"></span><span><b id="currentName">我的资料</b><small>编辑昵称与形象</small></span><span class="chevron">⌄</span></button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><div class="breadcrumbs">我的空间 <span>/</span> <b>周末自习室</b></div><div class="top-actions"><span class="demo-pill"><i></i> Supabase 已连接</span><button class="icon-button" id="authSignOut" aria-label="退出登录" title="退出登录">↪</button><button class="icon-button" id="helpButton" aria-label="帮助">?</button></div></header>
+      <div class="content">
+        <section class="welcome-row"><div><div class="eyebrow" id="todayLabel">FRIDAY · OCTOBER 2</div><h1>今天也一起，慢慢来。</h1><p>一个人的专注，也有两个人的陪伴。</p></div><button class="invite-button" id="copyLink"><span>＋</span> 邀请朋友 <small>稍后开放</small></button></section>
+
+        <section class="room-card">
+          <div class="room-heading"><div><div class="room-kicker"><span class="live-dot"></span> 私人空间 <span class="bullet">·</span> <span id="memberCount">0 位成员</span></div><h2><span id="roomHeadingName">周末自习室</span> <button id="roomMenu" class="tiny-edit" aria-label="编辑房间名称">✎</button></h2></div><div class="room-controls"><div class="view-toggle"><button class="selected" data-view="scene">房间</button><button data-view="list">列表</button></div><button class="dots" id="moreButton" aria-label="更多">···</button></div></div>
+          <div class="room-scene" id="roomScene">
+            <div class="window"><div class="window-sky"><span class="sun"></span><span class="cloud cloud-a"></span><span class="cloud cloud-b"></span></div><div class="window-sill"></div><div class="plant"><i></i><i></i><i></i><i></i><b></b></div></div>
+            <div class="wall-note">take it<br>one page<br>at a time<span>♡</span></div>
+            <div class="shelf"><span class="shelf-book book-one"></span><span class="shelf-book book-two"></span><span class="shelf-book book-three"></span><span class="shelf-plant"><i></i><i></i><b></b></span><span class="shelf-book book-four"></span></div>
+            <div class="floor"></div>
+            <div class="desks" id="desks"></div>
+            <div class="scene-caption"><span class="caption-sun"></span> 安静的午后，正适合专注一会儿</div>
+          </div>
+          <div class="room-list hidden" id="roomList"></div>
+          <div class="room-footer"><span><span class="online-dot"></span><b id="onlineCount">2</b> 位朋友在线</span><span class="updated-label" id="lastUpdated">刚刚更新</span></div>
+        </section>
+
+        <section class="lower-grid">
+          <div class="focus-card"><div class="section-heading"><div><span class="section-icon lavender"></span><h3>今日专注</h3></div><button class="text-button" id="allHistory">查看记录 <span>→</span></button></div><div class="focus-total"><strong id="totalTime">00<span>时</span> 00<span>分</span></strong><span class="timezone-tag">按两地时间查看</span></div><div class="dual-totals"><div><span>英国时间今天</span><b id="ukTotal">0 分钟</b></div><div><span>中国时间今天</span><b id="cnTotal">0 分钟</b></div></div><div class="focus-divider"></div><div id="sessionSummary" class="session-summary"></div></div>
+          <div class="start-card"><div class="start-art"><span class="sparkle s1"></span><span class="sparkle s2"></span><span class="art-animal" id="startAnimal"></span><span class="art-mug"></span></div><div class="start-copy"><h3 id="startTitle">准备好开始了吗？</h3><p id="startSubtitle">坐到书桌前，给自己一点专注时间。</p><div class="start-buttons"><button class="start-button" id="startButton"><span>▶</span> 开始工作</button><button class="stop-button hidden" id="stopButton"><span>■</span> 结束专注</button></div></div><div class="elapsed hidden" id="elapsed">00:00:00</div></div>
+        </section>
+        <footer class="page-footer"><span>为相隔很远的朋友，留一盏小灯。</span><span>Made with care <b>♡</b></span></footer>
+      </div>
+    </main>
+    <div class="toast" id="toast"></div>
+    <div class="modal-backdrop hidden" id="modal"><div class="modal"><button class="modal-close" id="modalClose">×</button><div id="modalContent"></div></div></div>
+    <div class="chat-widget">
+      <button class="chat-toggle" id="chatToggle" aria-expanded="false" aria-controls="chatPanel"><span class="chat-toggle-glyph" aria-hidden="true"></span><span>房间聊天</span><span class="chat-unread hidden" id="chatUnread">0</span></button>
+      <section class="chat-panel hidden" id="chatPanel" aria-label="房间聊天">
+        <header class="chat-header"><div><h2>房间聊天</h2><span id="chatStatus">本地预览</span></div><button id="chatClose" aria-label="关闭聊天">×</button></header>
+        <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"><div class="chat-empty" id="chatEmpty">给朋友留一句话吧。</div></div>
+        <form class="chat-form" id="chatForm"><label class="visually-hidden" for="chatInput">输入消息</label><textarea id="chatInput" maxlength="1000" rows="2" placeholder="说点什么…" required></textarea><div class="chat-form-footer"><span id="chatHint">本机预览消息</span><button type="submit" id="chatSend">发送</button></div></form>
+      </section>
+    </div>
+  </div>
+  <script src="supabase-config.js"></script>
+  <script src="supabase-client.js"></script>
+  <script src="app.js"></script>
+  <script src="chat.js"></script>
+</body>
+</html>
